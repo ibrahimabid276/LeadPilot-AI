@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import Link from "next/link";
-import { Loader2, CheckCircle, Eye, EyeOff, Zap, ArrowRight, Shield } from "lucide-react";
+import { Loader2, CheckCircle, Eye, EyeOff, ArrowRight, Shield } from "lucide-react";
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState("");
@@ -70,9 +70,11 @@ export default function ResetPasswordPage() {
         {/* Brand header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/20">
-              <Zap className="h-5 w-5 text-white" />
-            </div>
+            <img
+              src="/leadpilot_logo_icon.png"
+              alt="LeadPilot AI"
+              className="h-10 w-10 rounded-xl shadow-lg shadow-blue-500/20"
+            />
             <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">LeadPilot</span>
           </Link>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Set New Password</h1>

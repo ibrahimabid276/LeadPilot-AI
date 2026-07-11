@@ -77,9 +77,11 @@ export default function OnboardingWizard() {
       <div className="w-full max-w-xl">
         {/* Brand */}
         <div className="flex items-center justify-center gap-2.5 mb-8">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/20">
-            <Zap className="h-5 w-5 text-white" />
-          </div>
+          <img
+            src="/leadpilot_logo_icon.png"
+            alt="LeadPilot AI"
+            className="h-10 w-10 rounded-xl shadow-lg shadow-blue-500/20"
+          />
           <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">LeadPilot AI</span>
         </div>
 

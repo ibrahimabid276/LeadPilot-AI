@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Zap } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -15,9 +14,11 @@ export default function PrivacyPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600">
-                <Zap className="h-4 w-4 text-white" />
-              </div>
+              <img
+                src="/leadpilot_logo_icon.png"
+                alt="LeadPilot AI"
+                className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20"
+              />
               <span className="text-lg font-bold text-white dark:text-white text-gray-900">LeadPilot AI</span>
             </Link>
           </div>

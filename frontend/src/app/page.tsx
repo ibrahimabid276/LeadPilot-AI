@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  Zap,
   Target,
   Mail,
   BarChart3,
@@ -12,6 +11,11 @@ import {
   Users,
   Globe,
   Brain,
+  Zap,
+  TrendingUp,
+  Clock,
+  Search,
+  Wand2,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -38,7 +42,8 @@ const features = [
     icon: Target,
     title: "Smart Lead Discovery",
     description:
-      "Find businesses by location, industry, and criteria using our intelligent search engine powered by global business data.",
+      "Search by location, industry, keywords, and tech stack to find businesses matching your ideal customer profile.",
+    benefit: "Save hours on lead research",
     color: "text-blue-400",
     bg: "bg-blue-500/10",
   },
@@ -46,7 +51,8 @@ const features = [
     icon: Brain,
     title: "AI Lead Scoring",
     description:
-      "Automatically score and prioritize leads based on online presence, reviews, industry fit, and conversion potential.",
+      "Automatically score leads based on online presence and engagement signals to prioritize high-value prospects.",
+    benefit: "Focus on leads most likely to convert",
     color: "text-purple-400",
     bg: "bg-purple-500/10",
   },
@@ -54,7 +60,8 @@ const features = [
     icon: Mail,
     title: "AI Email Generator",
     description:
-      "Generate personalized outreach emails in seconds. Our AI crafts compelling messages tailored to each lead's business.",
+      "Generate personalized outreach emails in seconds. AI crafts compelling messages tailored to each lead's business.",
+    benefit: "Write 10x more outreach in less time",
     color: "text-green-400",
     bg: "bg-green-500/10",
   },
@@ -62,7 +69,8 @@ const features = [
     icon: Users,
     title: "Visual CRM Pipeline",
     description:
-      "Drag-and-drop Kanban board to manage leads through every stage — from discovery to closed deal.",
+      "Drag-and-drop Kanban board to manage leads and deals through every stage of your sales process.",
+    benefit: "Never lose track of a deal again",
     color: "text-yellow-400",
     bg: "bg-yellow-500/10",
   },
@@ -70,7 +78,8 @@ const features = [
     icon: BarChart3,
     title: "Real-time Analytics",
     description:
-      "Track email performance, conversion rates, and pipeline health with beautiful, actionable dashboards.",
+      "Track open rates, reply rates, and conversion metrics with beautiful, actionable dashboards.",
+    benefit: "Know exactly what's working",
     color: "text-cyan-400",
     bg: "bg-cyan-500/10",
   },
@@ -78,17 +87,18 @@ const features = [
     icon: Globe,
     title: "Website Intelligence",
     description:
-      "AI-powered website analysis reveals pain points, tech stack, and talking points for personalized outreach.",
+      "Analyze competitor websites and identify pain points, tech stack, and talking points for personalized outreach.",
+    benefit: "Uncover insights your competitors miss",
     color: "text-indigo-400",
     bg: "bg-indigo-500/10",
   },
 ];
 
 const stats = [
-  { value: "10x", label: "Faster Lead Research" },
-  { value: "85%", label: "Email Personalization" },
-  { value: "3x", label: "Higher Response Rates" },
-  { value: "24/7", label: "AI-Powered Outreach" },
+  { value: "10x", label: "Faster Lead Research", description: "Find qualified leads 10x faster than manual research", icon: Zap },
+  { value: "85%", label: "Email Personalization", description: "AI-crafted messages tailored to each prospect", icon: Mail },
+  { value: "3x", label: "Higher Response Rates", description: "Personalized outreach that gets real replies", icon: TrendingUp },
+  { value: "24/7", label: "AI-Powered Outreach", description: "Automated campaigns running around the clock", icon: Clock },
 ];
 
 const pricingPlans = [
@@ -170,34 +180,22 @@ export default function LandingPage() {
               <a href="#features" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
                 Features
               </a>
-              <a href="#pricing" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
+              <Link href="/pricing" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
                 Pricing
-              </a>
-              <Link href="/docs" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
-                Docs
               </Link>
-              <Link href="/blog" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
-                Blog
-              </Link>
-              <a href="/privacy" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
-                Privacy
-              </a>
-              <a href="/terms" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
-                Terms
-              </a>
             </div>
             <div className="flex items-center gap-3">
               <Link
                 href="/sign-in"
                 className="text-sm font-medium text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors"
               >
-                Sign In
+                Login
               </Link>
               <Link
                 href="/sign-up"
                 className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30"
               >
-                Get Started Free
+                Start Free
                 <ArrowRight size={14} />
               </Link>
             </div>
@@ -223,7 +221,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-lg sm:text-xl text-gray-400 dark:text-gray-400 text-gray-600 mb-10 leading-relaxed">
-            LeadPilot AI discovers businesses, scores them with AI, and generates personalized outreach emails — so you can focus on closing deals instead of researching prospects.
+            AI-powered lead research and outreach platform for sales teams.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
@@ -231,25 +229,68 @@ export default function LandingPage() {
               href="/sign-up"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-8 py-4 text-base font-semibold text-white hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
             >
-              Start Free — No Credit Card
+              Start Free Trial
               <ArrowRight size={18} />
             </Link>
             <a
               href="#features"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-gray-700 dark:border-gray-700 border-gray-300 bg-gray-800/50 dark:bg-gray-800/50 bg-gray-50 px-8 py-4 text-base font-semibold text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-700 dark:hover:bg-gray-700 hover:bg-gray-100 transition-all"
             >
-              See How It Works
+              See Demo
             </a>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-3xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-500">{stat.label}</div>
+          {/* Dashboard Illustration */}
+          <div className="mx-auto max-w-4xl mb-16">
+            <div className="relative rounded-2xl border border-gray-800 dark:border-gray-800 border-gray-200 bg-gray-900/50 dark:bg-gray-900/50 bg-white p-2 shadow-2xl shadow-blue-500/10">
+              <div className="rounded-xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 from-gray-50 via-white to-gray-100 p-8 min-h-[320px] flex items-center justify-center">
+                <div className="grid grid-cols-3 gap-4 w-full max-w-2xl">
+                  <div className="col-span-2 space-y-3">
+                    <div className="h-4 w-3/4 rounded bg-blue-500/20 dark:bg-blue-500/20 bg-blue-100" />
+                    <div className="h-3 w-full rounded bg-gray-700/30 dark:bg-gray-700/30 bg-gray-200" />
+                    <div className="h-3 w-5/6 rounded bg-gray-700/30 dark:bg-gray-700/30 bg-gray-200" />
+                    <div className="mt-4 grid grid-cols-2 gap-3">
+                      <div className="h-20 rounded-lg bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20 p-3">
+                        <div className="h-3 w-12 rounded bg-blue-400/40 mb-2" />
+                        <div className="h-6 w-8 rounded bg-blue-500/30" />
+                      </div>
+                      <div className="h-20 rounded-lg bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 p-3">
+                        <div className="h-3 w-12 rounded bg-green-400/40 mb-2" />
+                        <div className="h-6 w-8 rounded bg-green-500/30" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="h-28 rounded-lg bg-gradient-to-b from-purple-500/10 to-transparent border border-purple-500/20 p-3">
+                      <div className="h-3 w-10 rounded bg-purple-400/40 mb-2" />
+                      <div className="space-y-1.5">
+                        <div className="h-2 w-full rounded bg-gray-700/20 dark:bg-gray-700/20 bg-gray-200" />
+                        <div className="h-2 w-3/4 rounded bg-gray-700/20 dark:bg-gray-700/20 bg-gray-200" />
+                      </div>
+                    </div>
+                    <div className="h-16 rounded-lg bg-gradient-to-b from-cyan-500/10 to-transparent border border-cyan-500/20 p-3">
+                      <div className="h-3 w-8 rounded bg-cyan-400/40 mb-2" />
+                      <div className="h-2 w-full rounded bg-gray-700/20 dark:bg-gray-700/20 bg-gray-200" />
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {stats.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <div key={stat.label} className="text-center p-4 rounded-xl border border-gray-800 dark:border-gray-800 border-gray-200 bg-gray-900/30 dark:bg-gray-900/30 bg-white">
+                  <Icon size={20} className="text-blue-400 mx-auto mb-2" />
+                  <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">{stat.value}</div>
+                  <div className="text-sm font-medium text-white dark:text-white text-gray-900 mb-1">{stat.label}</div>
+                  <div className="text-xs text-gray-500">{stat.description}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -280,8 +321,11 @@ export default function LandingPage() {
                   <h3 className="text-lg font-semibold text-white dark:text-white text-gray-900 mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 leading-relaxed">
+                  <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 leading-relaxed mb-3">
                     {feature.description}
+                  </p>
+                  <p className="text-xs font-medium text-blue-400">
+                    {feature.benefit}
                   </p>
                 </div>
               );
@@ -306,39 +350,54 @@ export default function LandingPage() {
             {[
               {
                 step: "01",
+                icon: Search,
                 title: "Discover Leads",
                 description: "Search by location, industry, and criteria. Our AI finds businesses matching your ideal customer profile.",
               },
               {
                 step: "02",
+                icon: Wand2,
                 title: "AI Generates Emails",
                 description: "Our AI analyzes each lead and crafts personalized outreach emails that resonate with their specific business.",
               },
               {
                 step: "03",
+                icon: BarChart3,
                 title: "Track & Convert",
                 description: "Monitor opens, replies, and conversions. Move leads through your pipeline and close more deals.",
               },
-            ].map((item) => (
-              <div key={item.step} className="relative text-center">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-500/20 mb-6">
-                  <span className="text-2xl font-bold gradient-text">{item.step}</span>
+            ].map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.step} className="relative text-center">
+                  {/* Connector arrow (not on last item) */}
+                  {idx < 2 && (
+                    <div className="hidden md:block absolute top-8 -right-4 z-10">
+                      <ArrowRight size={24} className="text-blue-500/40" />
+                    </div>
+                  )}
+                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-500/20 mb-6">
+                    <Icon size={28} className="text-blue-400" />
+                  </div>
+                  <div className="absolute top-0 right-1/2 translate-x-[52px] -translate-y-2">
+                    <span className="text-xs font-bold text-blue-500/60">STEP {item.step}</span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-white dark:text-white text-gray-900 mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold text-white dark:text-white text-gray-900 mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Pricing Preview */}
       <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 border-t border-gray-800 dark:border-gray-800 border-gray-200">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white dark:text-white text-gray-900 mb-4">
               Simple, transparent pricing
@@ -348,44 +407,36 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {pricingPlans.map((plan) => (
               <div
                 key={plan.name}
-                className={`relative rounded-2xl border p-8 transition-all duration-300 hover:-translate-y-1 ${
+                className={`rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 ${
                   plan.popular
                     ? "border-blue-500/50 bg-gradient-to-b from-blue-500/10 to-transparent shadow-xl shadow-blue-500/10"
                     : "border-gray-800 dark:border-gray-800 border-gray-200 bg-gray-900/50 dark:bg-gray-900/50 bg-white"
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <div className="mb-3">
                     <span className="rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white shadow-lg shadow-blue-500/30">
                       Most Popular
                     </span>
                   </div>
                 )}
-                <h3 className="text-lg font-semibold text-white dark:text-white text-gray-900 mb-2">
+                <h3 className="text-lg font-semibold text-white dark:text-white text-gray-900 mb-1">
                   {plan.name}
                 </h3>
-                <div className="flex items-baseline gap-1 mb-3">
-                  <span className="text-4xl font-bold text-white dark:text-white text-gray-900">{plan.price}</span>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-3xl font-bold text-white dark:text-white text-gray-900">{plan.price}</span>
                   <span className="text-gray-500">{plan.period}</span>
                 </div>
-                <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 mb-6">
-                  {plan.description}
+                <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 mb-4">
+                  {plan.features[0]}
                 </p>
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-sm text-gray-300 dark:text-gray-300 text-gray-700">
-                      <Check size={16} className="text-blue-400 shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
                 <a
                   href={plan.cta === 'Contact Sales' ? 'mailto:sales@leadpilot.ai?subject=Enterprise%20Plan%20Inquiry%20-%20LeadPilot%20AI' : `/pricing?plan=${plan.id}`}
-                  className={`w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold transition-all ${
+                  className={`w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all ${
                     plan.popular
                       ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20"
                       : "border border-gray-700 dark:border-gray-700 border-gray-300 text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-800 dark:hover:bg-gray-800 hover:bg-gray-50"
@@ -396,6 +447,16 @@ export default function LandingPage() {
                 </a>
               </div>
             ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-700 dark:border-gray-700 border-gray-300 px-6 py-3 text-sm font-semibold text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-800 dark:hover:bg-gray-800 hover:bg-gray-50 transition-all"
+            >
+              View Full Pricing
+              <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>
@@ -428,9 +489,11 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2.5 mb-4">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600">
-                  <Zap className="h-4 w-4 text-white" />
-                </div>
+                <img
+                  src="/leadpilot_logo_icon.png"
+                  alt="LeadPilot AI"
+                  className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20"
+                />
                 <span className="text-lg font-bold text-white dark:text-white text-gray-900">LeadPilot AI</span>
               </div>
               <p className="text-sm text-gray-500 max-w-xs">
@@ -441,7 +504,7 @@ export default function LandingPage() {
               <h4 className="text-sm font-semibold text-white dark:text-white text-gray-900 mb-4">Product</h4>
               <ul className="space-y-2">
                 <li><a href="#features" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Features</a></li>
-                <li><a href="#pricing" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Pricing</a></li>
+                <li><Link href="/pricing" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Pricing</Link></li>
                 <li><Link href="/sign-up" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Get Started</Link></li>
               </ul>
             </div>
@@ -450,30 +513,31 @@ export default function LandingPage() {
               <ul className="space-y-2">
                 <li><Link href="/about" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">About</Link></li>
                 <li><Link href="/blog" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Blog</Link></li>
-                <li><Link href="/docs" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Documentation</Link></li>
-                <li><Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Terms of Service</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-white dark:text-white text-gray-900 mb-4">Support</h4>
+              <h4 className="text-sm font-semibold text-white dark:text-white text-gray-900 mb-4">Legal & Support</h4>
               <ul className="space-y-2">
-                <li><a href="mailto:support@leadpilot.ai" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Contact Us</a></li>
-                <li><Link href="/sign-in" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Sign In</Link></li>
+                <li><Link href="/terms" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Terms of Service</Link></li>
+                <li><Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Privacy Policy</Link></li>
+                <li><a href="mailto:sales@leadpilot.ai" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Contact</a></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 dark:border-gray-800 border-gray-200 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-500">
-              &copy; {new Date().getFullYear()} LeadPilot AI. All rights reserved.
+              &copy; 2026 LeadPilot AI. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/privacy" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">
-                Privacy
-              </Link>
               <Link href="/terms" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">
                 Terms
               </Link>
+              <Link href="/privacy" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">
+                Privacy
+              </Link>
+              <a href="mailto:sales@leadpilot.ai" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">
+                Contact
+              </a>
             </div>
           </div>
         </div>

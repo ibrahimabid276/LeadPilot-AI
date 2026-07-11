@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import Link from "next/link";
-import { Zap, Loader2, ArrowRight } from "lucide-react";
+import { Loader2, ArrowRight, AlertCircle } from "lucide-react";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
@@ -25,7 +25,15 @@ export default function SignInPage() {
     });
 
     if (error) {
-      setError(error.message);
+      const message =
+        error.message?.toLowerCase().includes("invalid") ||
+        error.message?.toLowerCase().includes("credentials")
+          ? "Invalid email or password. Please try again."
+          : error.message?.toLowerCase().includes("not confirmed") ||
+            error.message?.toLowerCase().includes("email not confirmed")
+          ? "Please verify your email address before signing in."
+          : "Unable to sign in. Please check your credentials and try again.";
+      setError(message);
       setLoading(false);
     } else {
       router.push("/dashboard");
@@ -38,9 +46,11 @@ export default function SignInPage() {
       <div className="w-full max-w-md">
         {/* Brand */}
         <div className="flex items-center justify-center gap-2.5 mb-8">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/20">
-            <Zap className="h-5 w-5 text-white" />
-          </div>
+          <img
+            src="/leadpilot_logo_icon.png"
+            alt="LeadPilot AI"
+            className="h-10 w-10 rounded-xl shadow-lg shadow-blue-500/20"
+          />
           <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">LeadPilot AI</span>
         </div>
 
@@ -52,8 +62,9 @@ export default function SignInPage() {
 
           <form onSubmit={handleSignIn} className="space-y-5">
             {error && (
-              <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 rounded-lg text-red-600 dark:text-red-300 text-sm">
-                {error}
+              <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 rounded-lg text-red-600 dark:text-red-300 text-sm flex items-start gap-2">
+                <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
+                <span>{error}</span>
               </div>
             )}
 

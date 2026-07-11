@@ -81,7 +81,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               />
             </svg>
           </button>
-          <span className="text-sm font-semibold text-white">LeadPilot AI</span>
+          <img
+            src="/leadpilot_logo_icon.png"
+            alt="LeadPilot AI"
+            className="h-7 w-7 rounded-lg shadow-lg shadow-blue-500/20"
+          />
+          <span className="text-sm font-semibold text-white dark:text-white text-gray-900">LeadPilot AI</span>
         </div>
 
         <div className="p-4 lg:p-6">{children}</div>

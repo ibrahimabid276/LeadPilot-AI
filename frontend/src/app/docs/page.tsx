@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Zap, ArrowRight, Book, Code, Mail, Users, BarChart3, Key, Globe, Search } from "lucide-react";
+import { ArrowRight, Book, Code, Mail, Users, BarChart3, Key, Globe, Search } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Documentation — LeadPilot AI",
@@ -95,7 +95,7 @@ export default function DocumentationPage() {
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5">
               <img
-                src="/leadpilot-logo.png"
+                src="/leadpilot_logo_icon.png"
                 alt="LeadPilot AI"
                 className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20"
               />
@@ -178,9 +178,11 @@ export default function DocumentationPage() {
       <footer className="border-t border-slate-200 dark:border-slate-800 py-12 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl text-center">
           <div className="flex items-center justify-center gap-2.5 mb-4">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600">
-              <Zap className="h-4 w-4 text-white" />
-            </div>
+            <img
+              src="/leadpilot_logo_icon.png"
+              alt="LeadPilot AI"
+              className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20"
+            />
             <span className="text-lg font-bold text-slate-900 dark:text-white">LeadPilot AI</span>
           </div>
           <p className="text-xs text-slate-400 dark:text-slate-500">
