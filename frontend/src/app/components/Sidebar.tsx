@@ -13,7 +13,6 @@ import {
   LogIn,
   LogOut,
   X,
-  Zap,
   Sun,
   Moon,
   Command,
@@ -84,9 +83,11 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* Header / Brand */}
       <div className="flex items-center justify-between px-5 py-5 border-b border-gray-800 dark:border-gray-800 border-gray-200">
         <Link href="/" className="flex items-center gap-2.5 group" onClick={handleNavClick}>
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-shadow">
-            <Zap className="h-4 w-4 text-white" />
-          </div>
+          <img
+            src="/leadpilot_logo_icon.png"
+            alt="LeadPilot AI Logo"
+            className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-shadow"
+          />
           <span className="text-lg font-bold text-white dark:text-white text-gray-900 tracking-tight">
             LeadPilot
           </span>

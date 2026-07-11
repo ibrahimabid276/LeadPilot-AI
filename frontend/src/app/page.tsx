@@ -157,9 +157,11 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/20">
-                <Zap className="h-4 w-4 text-white" />
-              </div>
+              <img
+                src="/leadpilot-logo.png"
+                alt="LeadPilot AI"
+                className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20"
+              />
               <span className="text-lg font-bold text-white dark:text-white text-gray-900 tracking-tight">
                 LeadPilot AI
               </span>

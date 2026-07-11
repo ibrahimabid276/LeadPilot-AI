@@ -58,9 +58,9 @@ export const metadata: Metadata = {
       "Discover, score, and convert leads with AI-powered outreach. Find prospects, generate personalized emails, and manage your sales pipeline.",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
+        url: "/leadpilot_logo_icon.png",
+        width: 512,
+        height: 512,
         alt: "LeadPilot AI - AI-Powered Lead Generation",
       },
     ],
@@ -70,10 +70,11 @@ export const metadata: Metadata = {
     title: "LeadPilot AI — AI-Powered Lead Generation Platform",
     description:
       "Discover, score, and convert leads with AI-powered outreach.",
-    images: ["/og-image.png"],
+    images: ["/leadpilot_logo_icon.png"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/leadpilot_logo_icon.png",
+    apple: "/leadpilot_logo_icon.png",
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://leadpilot.ai"),
 };
