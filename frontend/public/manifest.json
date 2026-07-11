@@ -1,0 +1,16 @@
+{
+  "name": "LeadPilot AI",
+  "short_name": "LeadPilot",
+  "description": "AI-powered lead generation and outreach platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
