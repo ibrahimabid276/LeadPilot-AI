@@ -93,6 +93,7 @@ const stats = [
 
 const pricingPlans = [
   {
+    id: 'starter',
     name: "Starter",
     price: "$29",
     period: "/month",
@@ -109,6 +110,7 @@ const pricingPlans = [
     popular: false,
   },
   {
+    id: 'professional',
     name: "Professional",
     price: "$79",
     period: "/month",
@@ -127,6 +129,7 @@ const pricingPlans = [
     popular: true,
   },
   {
+    id: 'enterprise',
     name: "Enterprise",
     price: "$199",
     period: "/month",
@@ -378,8 +381,8 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href="/sign-up"
+                <a
+                  href={plan.cta === 'Contact Sales' ? 'mailto:sales@leadpilot.ai?subject=Enterprise%20Plan%20Inquiry%20-%20LeadPilot%20AI' : `/pricing?plan=${plan.id}`}
                   className={`w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold transition-all ${
                     plan.popular
                       ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20"
@@ -388,7 +391,7 @@ export default function LandingPage() {
                 >
                   {plan.cta}
                   <ArrowRight size={14} />
-                </Link>
+                </a>
               </div>
             ))}
           </div>

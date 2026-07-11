@@ -194,4 +194,20 @@ export const analyticsApi = {
     api.get<AnalyticsOverview>("/analytics/overview"),
 };
 
+// ─── Billing ────────────────────────────────────────────────────────────────
+
+export interface SubscriptionStatus {
+  plan: string;
+  subscription_status: string;
+  trial_ends_at: string | null;
+}
+
+export const billingApi = {
+  createCheckout: (plan: "starter" | "professional" | "enterprise") =>
+    api.post<{ checkout_url: string }>("/billing/checkout/create", { plan }),
+
+  getSubscription: () =>
+    api.get<SubscriptionStatus>("/billing/subscription"),
+};
+
 export default api;

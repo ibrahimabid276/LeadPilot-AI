@@ -21,6 +21,20 @@ class User(Base):
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )
 
+    # Billing fields
+    plan: Mapped[str] = mapped_column(
+        String(20), default="none", nullable=False
+    )
+    subscription_status: Mapped[str] = mapped_column(
+        String(20), default="inactive", nullable=False
+    )
+    trial_ends_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    lemonsqueezy_subscription_id: Mapped[str | None] = mapped_column(
+        String(255), nullable=True, index=True
+    )
+
     # Relationships
     leads = relationship("Lead", back_populates="user", cascade="all, delete-orphan")
     campaigns = relationship("Campaign", back_populates="user", cascade="all, delete-orphan")

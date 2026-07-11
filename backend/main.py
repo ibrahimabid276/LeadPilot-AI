@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from database import init_db
-from routes import leads, emails, crm, dashboard
+from routes import leads, emails, crm, dashboard, billing
 
 # Configure logging
 logging.basicConfig(
@@ -40,6 +40,7 @@ app.include_router(leads.router)
 app.include_router(emails.router)
 app.include_router(crm.router)
 app.include_router(dashboard.router)
+app.include_router(billing.router)
 
 # CORS configuration
 ALLOWED_ORIGINS = os.getenv(

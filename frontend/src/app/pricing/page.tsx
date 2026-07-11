@@ -1,13 +1,18 @@
-import Link from 'next/link';
+'use client';
 
-export const metadata = {
-  title: 'Pricing - Leadpilot.ai',
-  description: 'Simple, transparent pricing. Start free, scale as you grow.',
-};
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { billingApi } from '@/lib/api';
+import { createClient } from '@/lib/supabase';
 
 export default function PricingPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   const plans = [
     {
+      id: 'starter',
       name: 'Starter',
       price: '$29',
       period: '/month',
@@ -24,6 +29,7 @@ export default function PricingPage() {
       popular: false,
     },
     {
+      id: 'professional',
       name: 'Professional',
       price: '$79',
       period: '/month',
@@ -42,6 +48,7 @@ export default function PricingPage() {
       popular: true,
     },
     {
+      id: 'enterprise',
       name: 'Enterprise',
       price: '$199',
       period: '/month',
@@ -62,6 +69,33 @@ export default function PricingPage() {
     },
   ];
 
+  const handlePlanClick = async (planId: string, cta: string) => {
+    if (cta === 'Contact Sales') {
+      window.location.href = 'mailto:sales@leadpilot.ai?subject=Enterprise%20Plan%20Inquiry%20-%20LeadPilot%20AI';
+      return;
+    }
+
+    setLoading(planId);
+    setError(null);
+
+    try {
+      const supabase = createClient();
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        router.push('/sign-up');
+        return;
+      }
+
+      const response = await billingApi.createCheckout(planId as 'starter' | 'professional' | 'enterprise');
+      window.location.href = response.data.checkout_url;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to create checkout session';
+      setError(message);
+      setLoading(null);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="container mx-auto px-4 py-20">
@@ -73,6 +107,12 @@ export default function PricingPage() {
             Start free, scale as you grow. No hidden fees. Cancel anytime.
           </p>
         </div>
+
+        {error && (
+          <div className="max-w-2xl mx-auto mb-8 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-red-700 dark:text-red-300 text-center">
+            {error}
+          </div>
+        )}
 
         <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {plans.map((plan) => (
@@ -116,16 +156,17 @@ export default function PricingPage() {
                 ))}
               </ul>
 
-              <Link
-                href="/sign-up"
-                className={`block w-full text-center py-3 px-6 rounded-xl font-semibold transition-all active:scale-[0.98] ${
+              <button
+                onClick={() => handlePlanClick(plan.id, plan.cta)}
+                disabled={loading !== null}
+                className={`block w-full text-center py-3 px-6 rounded-xl font-semibold transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed ${
                   plan.popular
                     ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl'
                     : 'bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-900'
                 }`}
               >
-                {plan.cta}
-              </Link>
+                {loading === plan.id ? 'Redirecting...' : plan.cta}
+              </button>
             </div>
           ))}
         </div>

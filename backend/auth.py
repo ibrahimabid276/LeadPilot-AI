@@ -228,3 +228,24 @@ def get_optional_user(
         return get_current_user(credentials, db)
     except HTTPException:
         return None
+
+
+def require_active_subscription(user: User = Depends(get_current_user)) -> User:
+    """
+    Dependency that enforces an active or trialing subscription.
+    Raises 403 if the user's subscription is not active or trialing.
+    """
+    if user.subscription_status not in ("active", "trialing"):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="An active subscription is required to access this feature. Please subscribe to continue.",
+        )
+    return user
+
+
+def has_feature_access(user: User) -> bool:
+    """
+    Check if a user has access to core features based on subscription status.
+    Returns True if the user's subscription is active or trialing.
+    """
+    return user.subscription_status in ("active", "trialing")
