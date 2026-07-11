@@ -36,7 +36,7 @@ export default function ForgotPasswordPage() {
         <div className="w-full max-w-md">
           <div className="flex items-center justify-center gap-2.5 mb-8">
             <img
-              src="/leadpilot-logo.png"
+              src="/leadpilot_logo_icon.png"
               alt="LeadPilot AI"
               className="h-10 w-10 rounded-xl shadow-lg shadow-blue-500/20"
             />
