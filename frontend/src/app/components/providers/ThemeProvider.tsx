@@ -10,6 +10,32 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
+// Function to get initial theme (runs immediately, before React renders)
+function getInitialTheme(): Theme {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("leadpilot-theme") as Theme | null;
+    if (stored) {
+      return stored;
+    }
+    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+      return "light";
+    }
+  }
+  return "dark";
+}
+
+// Apply theme to root immediately (prevents flash)
+function applyThemeToRoot(theme: Theme) {
+  const root = document.documentElement;
+  if (theme === "dark") {
+    root.classList.add("dark");
+    root.classList.remove("light");
+  } else {
+    root.classList.add("light");
+    root.classList.remove("dark");
+  }
+}
+
 const ThemeContext = createContext<ThemeContextType>({
   theme: "dark",
   setTheme: () => {},
@@ -17,32 +43,16 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>(() => {
+    const initialTheme = getInitialTheme();
+    applyThemeToRoot(initialTheme);
+    return initialTheme;
+  });
 
   useEffect(() => {
-    setMounted(true);
-    // Check localStorage first, then system preference
-    const stored = localStorage.getItem("leadpilot-theme") as Theme | null;
-    if (stored) {
-      setTheme(stored);
-    } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-      setTheme("light");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-      root.classList.remove("light");
-    } else {
-      root.classList.add("light");
-      root.classList.remove("dark");
-    }
+    applyThemeToRoot(theme);
     localStorage.setItem("leadpilot-theme", theme);
-  }, [theme, mounted]);
+  }, [theme]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));

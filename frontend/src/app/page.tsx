@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -17,6 +20,7 @@ import {
   Search,
   Wand2,
 } from "lucide-react";
+import { useTheme } from "./components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "LeadPilot AI — AI-Powered Lead Generation & Outreach Platform",
@@ -160,10 +164,24 @@ const pricingPlans = [
 ];
 
 export default function LandingPage() {
+  const { theme } = useTheme();
+  
+  // Ensure dark class is applied immediately to root for dark mode
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+      root.classList.remove("light");
+    } else {
+      root.classList.add("light");
+      root.classList.remove("dark");
+    }
+  }, [theme]);
+
   return (
-    <div className="min-h-screen bg-gray-950 dark:bg-gray-950 bg-white">
+    <div className="min-h-screen bg-gray-950 text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-gray-800/50 dark:border-gray-800/50 border-gray-200 bg-gray-950/80 dark:bg-gray-950/80 bg-white/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-gray-800/50 bg-gray-950/80 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -172,22 +190,22 @@ export default function LandingPage() {
                 alt="LeadPilot AI"
                 className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20"
               />
-              <span className="text-lg font-bold text-white dark:text-white text-gray-900 tracking-tight">
+              <span className="text-lg font-bold text-white tracking-tight">
                 LeadPilot AI
               </span>
             </div>
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
+              <a href="#features" className="text-sm text-gray-400 hover:text-white transition-colors">
                 Features
               </a>
-              <Link href="/pricing" className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
+              <Link href="/pricing" className="text-sm text-gray-400 hover:text-white transition-colors">
                 Pricing
               </Link>
             </div>
             <div className="flex items-center gap-3">
               <Link
                 href="/sign-in"
-                className="text-sm font-medium text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors"
+                className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
               >
                 Login
               </Link>
@@ -215,12 +233,12 @@ export default function LandingPage() {
             <span className="text-sm font-medium text-blue-400">AI-Powered Lead Generation</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white dark:text-white text-gray-900 tracking-tight leading-[1.1] mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-6">
             Find leads. Generate emails.{" "}
             <span className="gradient-text">Close deals.</span>
           </h1>
 
-          <p className="mx-auto max-w-2xl text-lg sm:text-xl text-gray-400 dark:text-gray-400 text-gray-600 mb-10 leading-relaxed">
+          <p className="mx-auto max-w-2xl text-lg sm:text-xl text-gray-400 mb-10 leading-relaxed">
             AI-powered lead research and outreach platform for sales teams.
           </p>
 
@@ -234,7 +252,7 @@ export default function LandingPage() {
             </Link>
             <a
               href="#features"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-gray-700 dark:border-gray-700 border-gray-300 bg-gray-800/50 dark:bg-gray-800/50 bg-gray-50 px-8 py-4 text-base font-semibold text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-700 dark:hover:bg-gray-700 hover:bg-gray-100 transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-gray-700 bg-gray-800/50 px-8 py-4 text-base font-semibold text-gray-300 hover:bg-gray-700 transition-all"
             >
               See Demo
             </a>
@@ -242,13 +260,13 @@ export default function LandingPage() {
 
           {/* Dashboard Illustration */}
           <div className="mx-auto max-w-4xl mb-16">
-            <div className="relative rounded-2xl border border-gray-800 dark:border-gray-800 border-gray-200 bg-gray-900/50 dark:bg-gray-900/50 bg-white p-2 shadow-2xl shadow-blue-500/10">
-              <div className="rounded-xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 from-gray-50 via-white to-gray-100 p-8 min-h-[320px] flex items-center justify-center">
+            <div className="relative rounded-2xl border border-gray-800 bg-gray-900/50 p-2 shadow-2xl shadow-blue-500/10">
+              <div className="rounded-xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-8 min-h-[320px] flex items-center justify-center">
                 <div className="grid grid-cols-3 gap-4 w-full max-w-2xl">
                   <div className="col-span-2 space-y-3">
-                    <div className="h-4 w-3/4 rounded bg-blue-500/20 dark:bg-blue-500/20 bg-blue-100" />
-                    <div className="h-3 w-full rounded bg-gray-700/30 dark:bg-gray-700/30 bg-gray-200" />
-                    <div className="h-3 w-5/6 rounded bg-gray-700/30 dark:bg-gray-700/30 bg-gray-200" />
+                    <div className="h-4 w-3/4 rounded bg-blue-500/20" />
+                    <div className="h-3 w-full rounded bg-gray-700/30" />
+                    <div className="h-3 w-5/6 rounded bg-gray-700/30" />
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div className="h-20 rounded-lg bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20 p-3">
                         <div className="h-3 w-12 rounded bg-blue-400/40 mb-2" />
@@ -264,13 +282,13 @@ export default function LandingPage() {
                     <div className="h-28 rounded-lg bg-gradient-to-b from-purple-500/10 to-transparent border border-purple-500/20 p-3">
                       <div className="h-3 w-10 rounded bg-purple-400/40 mb-2" />
                       <div className="space-y-1.5">
-                        <div className="h-2 w-full rounded bg-gray-700/20 dark:bg-gray-700/20 bg-gray-200" />
-                        <div className="h-2 w-3/4 rounded bg-gray-700/20 dark:bg-gray-700/20 bg-gray-200" />
+                        <div className="h-2 w-full rounded bg-gray-700/20" />
+                        <div className="h-2 w-3/4 rounded bg-gray-700/20" />
                       </div>
                     </div>
                     <div className="h-16 rounded-lg bg-gradient-to-b from-cyan-500/10 to-transparent border border-cyan-500/20 p-3">
                       <div className="h-3 w-8 rounded bg-cyan-400/40 mb-2" />
-                      <div className="h-2 w-full rounded bg-gray-700/20 dark:bg-gray-700/20 bg-gray-200" />
+                      <div className="h-2 w-full rounded bg-gray-700/20" />
                     </div>
                   </div>
                 </div>
@@ -283,10 +301,10 @@ export default function LandingPage() {
             {stats.map((stat) => {
               const Icon = stat.icon;
               return (
-                <div key={stat.label} className="text-center p-4 rounded-xl border border-gray-800 dark:border-gray-800 border-gray-200 bg-gray-900/30 dark:bg-gray-900/30 bg-white">
+                <div key={stat.label} className="text-center p-4 rounded-xl border border-gray-800 bg-gray-900/30">
                   <Icon size={20} className="text-blue-400 mx-auto mb-2" />
                   <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">{stat.value}</div>
-                  <div className="text-sm font-medium text-white dark:text-white text-gray-900 mb-1">{stat.label}</div>
+                  <div className="text-sm font-medium text-white mb-1">{stat.label}</div>
                   <div className="text-xs text-gray-500">{stat.description}</div>
                 </div>
               );
@@ -299,10 +317,10 @@ export default function LandingPage() {
       <section id="features" className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white dark:text-white text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Everything you need to generate leads
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-gray-400 dark:text-gray-400 text-gray-600">
+            <p className="mx-auto max-w-2xl text-lg text-gray-400">
               From discovery to delivery, LeadPilot AI handles the entire outreach workflow with intelligent automation.
             </p>
           </div>
@@ -313,15 +331,15 @@ export default function LandingPage() {
               return (
                 <div
                   key={feature.title}
-                  className="group rounded-2xl border border-gray-800 dark:border-gray-800 border-gray-200 bg-gray-900/50 dark:bg-gray-900/50 bg-white p-6 hover:border-gray-700 dark:hover:border-gray-700 hover:border-gray-300 transition-all duration-300 hover:-translate-y-1 card-hover"
+                  className="group rounded-2xl border border-gray-800 bg-gray-900/50 p-6 hover:border-gray-700 transition-all duration-300 hover:-translate-y-1 card-hover"
                 >
                   <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${feature.bg} mb-4`}>
                     <Icon size={24} className={feature.color} />
                   </div>
-                  <h3 className="text-lg font-semibold text-white dark:text-white text-gray-900 mb-2">
+                  <h3 className="text-lg font-semibold text-white mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 leading-relaxed mb-3">
+                  <p className="text-sm text-gray-400 leading-relaxed mb-3">
                     {feature.description}
                   </p>
                   <p className="text-xs font-medium text-blue-400">
@@ -335,13 +353,13 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-gray-800 dark:border-gray-800 border-gray-200">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white dark:text-white text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Three steps to more customers
             </h2>
-            <p className="text-lg text-gray-400 dark:text-gray-400 text-gray-600">
+            <p className="text-lg text-gray-400">
               Get started in minutes, not weeks.
             </p>
           </div>
@@ -382,10 +400,10 @@ export default function LandingPage() {
                   <div className="absolute top-0 right-1/2 translate-x-[52px] -translate-y-2">
                     <span className="text-xs font-bold text-blue-500/60">STEP {item.step}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-white dark:text-white text-gray-900 mb-3">
+                  <h3 className="text-xl font-semibold text-white mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 leading-relaxed">
+                  <p className="text-sm text-gray-400 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -396,13 +414,13 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Preview */}
-      <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 border-t border-gray-800 dark:border-gray-800 border-gray-200">
+      <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white dark:text-white text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Simple, transparent pricing
             </h2>
-            <p className="text-lg text-gray-400 dark:text-gray-400 text-gray-600">
+            <p className="text-lg text-gray-400">
               Start free. Upgrade when you need more power.
             </p>
           </div>
@@ -414,7 +432,7 @@ export default function LandingPage() {
                 className={`rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 ${
                   plan.popular
                     ? "border-blue-500/50 bg-gradient-to-b from-blue-500/10 to-transparent shadow-xl shadow-blue-500/10"
-                    : "border-gray-800 dark:border-gray-800 border-gray-200 bg-gray-900/50 dark:bg-gray-900/50 bg-white"
+                    : "border-gray-800 bg-gray-900/50"
                 }`}
               >
                 {plan.popular && (
@@ -424,14 +442,14 @@ export default function LandingPage() {
                     </span>
                   </div>
                 )}
-                <h3 className="text-lg font-semibold text-white dark:text-white text-gray-900 mb-1">
+                <h3 className="text-lg font-semibold text-white mb-1">
                   {plan.name}
                 </h3>
                 <div className="flex items-baseline gap-1 mb-2">
-                  <span className="text-3xl font-bold text-white dark:text-white text-gray-900">{plan.price}</span>
+                  <span className="text-3xl font-bold text-white">{plan.price}</span>
                   <span className="text-gray-500">{plan.period}</span>
                 </div>
-                <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 mb-4">
+                <p className="text-sm text-gray-400 mb-4">
                   {plan.features[0]}
                 </p>
                 <a
@@ -439,7 +457,7 @@ export default function LandingPage() {
                   className={`w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all ${
                     plan.popular
                       ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20"
-                      : "border border-gray-700 dark:border-gray-700 border-gray-300 text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-800 dark:hover:bg-gray-800 hover:bg-gray-50"
+                      : "border border-gray-700 text-gray-300 hover:bg-gray-800"
                   }`}
                 >
                   {plan.cta}
@@ -452,7 +470,7 @@ export default function LandingPage() {
           <div className="text-center">
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-2 rounded-lg border border-gray-700 dark:border-gray-700 border-gray-300 px-6 py-3 text-sm font-semibold text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-800 dark:hover:bg-gray-800 hover:bg-gray-50 transition-all"
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-700 px-6 py-3 text-sm font-semibold text-gray-300 hover:bg-gray-800 transition-all"
             >
               View Full Pricing
               <ArrowRight size={14} />
@@ -462,12 +480,12 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-gray-800 dark:border-gray-800 border-gray-200">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white dark:text-white text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Ready to supercharge your outreach?
           </h2>
-          <p className="text-lg text-gray-400 dark:text-gray-400 text-gray-600 mb-8">
+          <p className="text-lg text-gray-400 mb-8">
             Join thousands of businesses using LeadPilot AI to find leads and close deals faster.
           </p>
           <Link
@@ -484,7 +502,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 dark:border-gray-800 border-gray-200 py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
             <div className="col-span-2 md:col-span-1">
@@ -494,80 +512,54 @@ export default function LandingPage() {
                   alt="LeadPilot AI"
                   className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20"
                 />
-                <span className="text-lg font-bold text-white dark:text-white text-gray-900">LeadPilot AI</span>
+                <span className="text-lg font-bold text-white">LeadPilot AI</span>
               </div>
               <p className="text-sm text-gray-500 max-w-xs">
                 AI-powered lead generation and outreach platform for modern sales teams.
               </p>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-white dark:text-white text-gray-900 mb-4">Product</h4>
+              <h4 className="text-sm font-semibold text-white mb-4">Product</h4>
               <ul className="space-y-2">
-                <li><a href="#features" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Features</a></li>
-                <li><Link href="/pricing" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Pricing</Link></li>
-                <li><Link href="/sign-up" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Get Started</Link></li>
+                <li><a href="#features" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Features</a></li>
+                <li><Link href="/pricing" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Pricing</a></li>
+                <li><Link href="/sign-up" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Get Started</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-white dark:text-white text-gray-900 mb-4">Company</h4>
+              <h4 className="text-sm font-semibold text-white mb-4">Company</h4>
               <ul className="space-y-2">
-                <li><Link href="/about" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">About</Link></li>
-                <li><Link href="/blog" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Blog</Link></li>
+                <li><Link href="/about" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">About</a></li>
+                <li><Link href="/blog" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Blog</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-white dark:text-white text-gray-900 mb-4">Legal & Support</h4>
+              <h4 className="text-sm font-semibold text-white mb-4">Legal & Support</h4>
               <ul className="space-y-2">
-                <li><Link href="/terms" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Terms of Service</Link></li>
-                <li><Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Privacy Policy</Link></li>
-                <li><a href="mailto:sales@leadpilot.ai" className="text-sm text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Contact</a></li>
+                <li><Link href="/terms" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Terms of Service</a></li>
+                <li><Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Privacy Policy</a></li>
+                <li><a href="mailto:sales@leadpilot.ai" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Contact</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 dark:border-gray-800 border-gray-200 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-500">
-              &copy; 2026 LeadPilot AI. All rights reserved.
+              © 2026 LeadPilot AI. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/terms" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">
+              <Link href="/terms" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
                 Terms
               </Link>
-              <Link href="/privacy" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">
+              <Link href="/privacy" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
                 Privacy
               </Link>
-              <a href="mailto:sales@leadpilot.ai" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">
+              <a href="mailto:sales@leadpilot.ai" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
                 Contact
               </a>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* Structured Data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "LeadPilot AI",
-            applicationCategory: "BusinessApplication",
-            operatingSystem: "Web",
-            description: "AI-powered lead generation and outreach platform",
-            offers: {
-              "@type": "Offer",
-              price: "29",
-              priceCurrency: "USD",
-              priceValidUntil: "2026-12-31",
-            },
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.8",
-              ratingCount: "150",
-            },
-          }),
-        }}
-      />
     </div>
   );
 }
