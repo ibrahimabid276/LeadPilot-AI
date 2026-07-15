@@ -168,7 +168,7 @@ export default function LandingPage() {
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-2.5">
               <img
-                src="/leadpilot-logo.png"
+                src="/leadpilot_logo_icon.png"
                 alt="LeadPilot AI"
                 className="h-8 w-8 rounded-lg shadow-lg shadow-blue-500/20"
               />
