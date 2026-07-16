@@ -97,7 +97,7 @@ const sections = [
         <p className="mt-3">
           <strong>Refund policy:</strong> Refunds are provided only for service outages exceeding 24 hours.
           No partial-month refunds. Contact{" "}
-          <a href="mailto:sales@leadpilot.ai" className="text-blue-400 hover:text-blue-300 underline">sales@leadpilot.ai</a>{" "}
+          <a href="mailto:ibrahimabid276@gmail.com" className="text-blue-400 hover:text-blue-300 underline">ibrahimabid276@gmail.com</a>{" "}
           for billing inquiries.
         </p>
       </>
@@ -225,7 +225,7 @@ export default function TermsPage() {
           <div className="flex items-center gap-6">
             <Link href="/terms" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Terms</Link>
             <Link href="/privacy" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Privacy</Link>
-            <a href="mailto:sales@leadpilot.ai" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Contact</a>
+            <a href="mailto:ibrahimabid276@gmail.com" className="text-xs text-gray-500 hover:text-gray-300 dark:hover:text-gray-300 hover:text-gray-700 transition-colors">Contact</a>
           </div>
         </div>
       </footer>

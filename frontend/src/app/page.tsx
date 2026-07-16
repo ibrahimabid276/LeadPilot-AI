@@ -453,7 +453,7 @@ export default function LandingPage() {
                   {plan.features[0]}
                 </p>
                 <a
-                  href={plan.cta === 'Contact Sales' ? 'mailto:sales@leadpilot.ai?subject=Enterprise%20Plan%20Inquiry%20-%20LeadPilot%20AI' : `/pricing?plan=${plan.id}`}
+                  href={plan.cta === 'Contact Sales' ? 'mailto:ibrahimabid276@gmail.com?subject=Enterprise%20Plan%20Inquiry%20-%20LeadPilot%20AI' : `/pricing?plan=${plan.id}`}
                   className={`w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all ${
                     plan.popular
                       ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20"
@@ -538,7 +538,7 @@ export default function LandingPage() {
               <ul className="space-y-2">
                 <li><Link href="/terms" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Terms of Service</a></li>
                 <li><Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Privacy Policy</a></li>
-                <li><a href="mailto:sales@leadpilot.ai" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Contact</a></li>
+                <li><a href="mailto:ibrahimabid276@gmail.com" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -553,7 +553,7 @@ export default function LandingPage() {
               <Link href="/privacy" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
                 Privacy
               </Link>
-              <a href="mailto:sales@leadpilot.ai" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+              <a href="mailto:ibrahimabid276@gmail.com" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
                 Contact
               </a>
             </div>

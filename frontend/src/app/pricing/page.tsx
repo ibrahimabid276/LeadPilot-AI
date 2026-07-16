@@ -87,7 +87,7 @@ export default function PricingPage() {
 
   const handlePlanClick = async (planId: string, cta: string) => {
     if (cta === 'Contact Sales') {
-      window.location.href = 'mailto:sales@leadpilot.ai?subject=Enterprise%20Plan%20Inquiry%20-%20LeadPilot%20AI';
+      window.location.href = 'mailto:ibrahimabid276@gmail.com?subject=Enterprise%20Plan%20Inquiry%20-%20LeadPilot%20AI';
       return;
     }
 
@@ -311,7 +311,7 @@ export default function PricingPage() {
             <div className="flex items-center gap-6">
               <Link href="/terms" className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Terms</Link>
               <Link href="/privacy" className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Privacy</Link>
-              <a href="mailto:sales@leadpilot.ai" className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Contact</a>
+              <a href="mailto:ibrahimabid276@gmail.com" className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Contact</a>
             </div>
           </div>
         </div>
