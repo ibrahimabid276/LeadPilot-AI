@@ -1,41 +1,79 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreditCard, Check, Download, Zap, TrendingUp, Calendar, ArrowUpRight } from "lucide-react";
-
-const currentPlan = {
-  name: "Professional",
-  price: 79,
-  period: "month",
-  status: "active",
-  nextBilling: "2026-08-10",
-  features: [
-    "5,000 leads/month",
-    "AI email sequences",
-    "Advanced CRM + analytics",
-    "Website intelligence",
-    "Lead scoring AI",
-    "5 team members",
-    "Priority support",
-    "CSV import/export",
-  ],
-};
-
-const usageStats = [
-  { label: "Leads Used", current: 2847, limit: 5000, unit: "leads" },
-  { label: "Emails Sent", current: 1234, limit: 10000, unit: "emails" },
-  { label: "Team Members", current: 3, limit: 5, unit: "members" },
-];
-
-const invoices = [
-  { id: "INV-001", date: "2026-07-10", amount: 79, status: "paid" },
-  { id: "INV-002", date: "2026-06-10", amount: 79, status: "paid" },
-  { id: "INV-003", date: "2026-05-10", amount: 79, status: "paid" },
-  { id: "INV-004", date: "2026-04-10", amount: 79, status: "paid" },
-];
+import { billingApi } from "@/lib/api";
+import Link from "next/link";
 
 export default function BillingPage() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [subscription, setSubscription] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchSubscription = async () => {
+      try {
+        const response = await billingApi.getSubscription();
+        setSubscription(response.data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load subscription data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSubscription();
+  }, []);
+
+  const getPlanDetails = (plan: string) => {
+    const plans: Record<string, { name: string; price: number; features: string[] }> = {
+      starter: {
+        name: "Starter",
+        price: 29,
+        features: [
+          "500 leads/month",
+          "Basic AI email generation",
+          "CRM with drag-and-drop",
+          "Email campaign manager",
+          "CSV export",
+          "1 team member",
+          "Email support",
+        ],
+      },
+      professional: {
+        name: "Professional",
+        price: 79,
+        features: [
+          "5,000 leads/month",
+          "AI email sequences",
+          "Advanced CRM + analytics",
+          "Website intelligence",
+          "Lead scoring AI",
+          "5 team members",
+          "Priority support",
+          "CSV import/export",
+        ],
+      },
+      enterprise: {
+        name: "Enterprise",
+        price: 199,
+        features: [
+          "Unlimited leads",
+          "AI campaign generator",
+          "Custom integrations",
+          "API access",
+          "White-label options",
+          "Unlimited team members",
+          "Dedicated support",
+          "SLA guarantee",
+        ],
+      },
+    };
+    return plans[plan] || plans.starter;
+  };
+
+  const isActiveSubscription = subscription && (subscription.subscription_status === 'active' || subscription.subscription_status === 'trialing');
 
   const getUsagePercentage = (current: number, limit: number) => {
     return Math.min((current / limit) * 100, 100);
@@ -47,6 +85,22 @@ export default function BillingPage() {
     return "bg-green-500";
   };
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-slate-600 dark:text-slate-400">Loading subscription data...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-red-600 dark:text-red-400">Error: {error}</div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
@@ -56,100 +110,93 @@ export default function BillingPage() {
             Manage your subscription, view usage, and download invoices.
           </p>
         </div>
-        <button
-          onClick={() => setShowUpgradeModal(true)}
-          className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20"
-        >
-          <Zap size={16} /> Upgrade Plan
-        </button>
+        {!isActiveSubscription && (
+          <Link
+            href="/pricing"
+            className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20"
+          >
+            <Zap size={16} /> View Plans
+          </Link>
+        )}
       </div>
 
       {/* Current Plan */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm mb-6">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white">{currentPlan.name}</h2>
-              <span className="rounded-full bg-green-100 dark:bg-green-500/10 px-2 py-0.5 text-xs font-medium text-green-600 dark:text-green-400">
-                Active
-              </span>
-            </div>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              ${currentPlan.price}/{currentPlan.period} · Next billing: {new Date(currentPlan.nextBilling).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <CreditCard size={20} className="text-slate-400" />
-            <span className="text-sm text-slate-600 dark:text-slate-400">Visa ending in 4242</span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-          {currentPlan.features.slice(0, 4).map((feature) => (
-            <div key={feature} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-              <Check size={14} className="text-green-500 shrink-0" />
-              {feature}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Usage Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        {usageStats.map((stat) => {
-          const percentage = getUsagePercentage(stat.current, stat.limit);
-          return (
-            <div key={stat.label} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300">{stat.label}</h3>
-                <span className="text-xs text-slate-500 dark:text-slate-400">
-                  {stat.current.toLocaleString()} / {stat.limit.toLocaleString()}
+      {isActiveSubscription ? (
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm mb-6">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white">{getPlanDetails(subscription.plan).name}</h2>
+                <span className="rounded-full bg-green-100 dark:bg-green-500/10 px-2 py-0.5 text-xs font-medium text-green-600 dark:text-green-400">
+                  {subscription.subscription_status === 'trialing' ? 'Trial' : 'Active'}
                 </span>
               </div>
-              <div className="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                <div
-                  className={`h-full rounded-full transition-all ${getUsageColor(percentage)}`}
-                  style={{ width: `${percentage}%` }}
-                />
-              </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                {percentage.toFixed(0)}% used · {stat.limit - stat.current} {stat.unit} remaining
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                ${getPlanDetails(subscription.plan).price}/month
+                {subscription.trial_ends_at && subscription.subscription_status === 'trialing' && (
+                  <> · Trial ends: {new Date(subscription.trial_ends_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</>
+                )}
               </p>
             </div>
-          );
-        })}
-      </div>
+            <div className="flex items-center gap-2">
+              <CreditCard size={20} className="text-slate-400" />
+              <span className="text-sm text-slate-600 dark:text-slate-400">Managed via Lemon Squeezy</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+            {getPlanDetails(subscription.plan).features.slice(0, 4).map((feature) => (
+              <div key={feature} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <Check size={14} className="text-green-500 shrink-0" />
+                {feature}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm mb-6 text-center">
+          <div className="flex justify-center mb-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-500/10">
+              <Zap size={32} className="text-blue-600 dark:text-blue-400" />
+            </div>
+          </div>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Active Subscription</h2>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 max-w-md mx-auto">
+            You don't have an active subscription yet. Choose a plan to unlock all features and start generating leads.
+          </p>
+          <Link
+            href="/pricing"
+            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20"
+          >
+            <ArrowUpRight size={16} /> View Pricing Plans
+          </Link>
+        </div>
+      )}
+
+      {/* Usage Stats - Only show for active subscriptions */}
+      {isActiveSubscription && (
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm mb-6">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Usage Statistics</h2>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Detailed usage statistics will be available once usage tracking is implemented.
+          </p>
+        </div>
+      )}
 
       {/* Invoices */}
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
         <div className="border-b border-slate-200 dark:border-slate-800 px-5 py-4">
           <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Invoice History</h2>
         </div>
-        <div className="divide-y divide-slate-100 dark:divide-slate-800">
-          {invoices.map((invoice) => (
-            <div key={invoice.id} className="flex items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-              <div className="flex items-center gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
-                  <Calendar size={16} className="text-slate-500" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-900 dark:text-white">{invoice.id}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
-                    {new Date(invoice.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold text-slate-900 dark:text-white">${invoice.amount}</span>
-                <span className="rounded-full bg-green-100 dark:bg-green-500/10 px-2 py-0.5 text-xs font-medium text-green-600 dark:text-green-400">
-                  {invoice.status}
-                </span>
-                <button className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
-                  <Download size={14} />
-                </button>
-              </div>
+        <div className="px-5 py-8 text-center">
+          <div className="flex justify-center mb-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
+              <Calendar size={24} className="text-slate-400" />
             </div>
-          ))}
+          </div>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Invoice history will appear here once Lemon Squeezy integration is complete.
+          </p>
         </div>
       </div>
 

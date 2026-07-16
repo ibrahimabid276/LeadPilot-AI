@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import {
   Target,
@@ -21,25 +20,6 @@ import {
   Wand2,
 } from "lucide-react";
 import { useTheme } from "./components/providers/ThemeProvider";
-
-export const metadata: Metadata = {
-  title: "LeadPilot AI — AI-Powered Lead Generation & Outreach Platform",
-  description:
-    "Discover, score, and convert leads with AI-powered outreach. Find prospects using smart business discovery, generate personalized emails, and manage your sales pipeline — all in one platform.",
-  openGraph: {
-    title: "LeadPilot AI — AI-Powered Lead Generation Platform",
-    description:
-      "Discover, score, and convert leads with AI-powered outreach. All in one platform.",
-    type: "website",
-    locale: "en_US",
-    siteName: "LeadPilot AI",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "LeadPilot AI — AI-Powered Lead Generation Platform",
-    description: "Discover, score, and convert leads with AI-powered outreach.",
-  },
-};
 
 const features = [
   {
@@ -522,22 +502,22 @@ export default function LandingPage() {
               <h4 className="text-sm font-semibold text-white mb-4">Product</h4>
               <ul className="space-y-2">
                 <li><a href="#features" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Features</a></li>
-                <li><Link href="/pricing" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Pricing</a></li>
-                <li><Link href="/sign-up" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Get Started</a></li>
+                <li><Link href="/pricing" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Pricing</Link></li>
+                <li><Link href="/sign-up" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Get Started</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-sm font-semibold text-white mb-4">Company</h4>
               <ul className="space-y-2">
-                <li><Link href="/about" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">About</a></li>
-                <li><Link href="/blog" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Blog</a></li>
+                <li><Link href="/about" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">About</Link></li>
+                <li><Link href="/blog" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Blog</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-sm font-semibold text-white mb-4">Legal & Support</h4>
               <ul className="space-y-2">
-                <li><Link href="/terms" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Terms of Service</a></li>
-                <li><Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Privacy Policy</a></li>
+                <li><Link href="/terms" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Terms of Service</Link></li>
+                <li><Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Privacy Policy</Link></li>
                 <li><a href="mailto:ibrahimabid276@gmail.com" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Contact</a></li>
               </ul>
             </div>
